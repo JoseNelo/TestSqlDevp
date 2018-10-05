@@ -1,0 +1,39 @@
+
+
+
+nombre de la tabla history
+
+ejecutar store procedure anonimo desde un script
+
+guardar la funcion en la BD , puede ser en el usuario parameters
+
+desarrollar el script que 
+
+ingresar al sistema con el usuario oracle
+
+crear carpeta /u01/app/oracle/admin/<nombre de bd>/dpdump/history
+
+otorgar los permisos de usuario y grupos  ******
+
+copiar el tar en la carpeta history
+
+descomprimir el tar y extraer archivos
+
+correr script para crear tabla history
+
+	
+	pre-env:
+	correr script para realizar la carga de los datos
+	script para crear un tipo de dato que sera utilizado por la funcion split.
+	script pára crear la funcion split
+	script para crear store procedure de poblacion de tablas.history_bulk
+
+	his-bulk:
+	script para la ejecucion del stored procedure history_bulk
+	
+	Script clean-env:
+	script para borrar funcion y stored anterior.
+
+
+		Hacer pruebas en el archivo csv
+		cambiar primera letra del campo y la que sigue despues del guion sf_request_id pocada prueba 

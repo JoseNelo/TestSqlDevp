@@ -1,0 +1,40 @@
+
+
+1) Ingresar al sistema con el usuario oracle
+
+2) Crear carpeta history
+	
+	mkdir -p  /u01/app/oracle/admin/<nombre de bd>/dpdump/history
+
+3) Copiar el archivo history.tar.gz en la carpeta dbdump
+
+	cp history.tar.gz /u01/app/oracle/admin/<nombre de bd>/dpdump
+
+4) Descomprimir el archivo history.tar.gzip y extraer archivos
+
+	cd /u01/app/oracle/admin/<nombre de bd>/dpdump/
+		gzip -d history.tar.gz
+			tar xvf history.tar 
+  
+5) 	Carga de datos en BD:
+	Correr script history.sh para crear tabla history
+	cd  /u01/app/oracle/admin/<nombre de bd>/dpdump/history
+	Nota : este script solicitará la clave de system DOS veces , estar atento.
+	./history.sh
+
+6)	pre-env: sqlplus system @pre_env.sql 
+	correr script para realizar la carga de los datos
+	script para crear un tipo de dato que sera utilizado por la function split.
+	script pára crear la funcion split
+	script para crear store procedure de poblacion de tablas.history_bulk
+
+7) 	his-bulk: his-bulk.sql
+	script para la ejecucion del stored procedure parameters.history_bulk
+	sqlplus system @his-bulk.sql
+	
+8)	Script clean-env: clean-env.sql
+	script para borrar función, tabla  y stored anterior.
+	sqlplus system @clean-env.sql
+
+	
+	

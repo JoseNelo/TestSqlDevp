@@ -1,0 +1,106 @@
+
+
+select SEQUENCE_OWNER,SEQUENCE_NAME from dba_sequences where SEQUENCE_OWNER='PARAMETERS';
+
+select owner,object_type,count(*) from dba_objects where owner in ('PARAMETERS','MESSAGE','SECURITY','TRANSACTIONAL')
+group by owner,object_type
+order by 1
+/
+
+
+select SEQUENCE_OWNER,SEQUENCE_NAME from dba_sequences where SEQUENCE_OWNER='PARAMETERS' order by 2
+
+
+
+TABLE_NAME                     HAS DEPENDEN
+------------------------------ --- --------
+APPLICATION_PROPERTIES         YES DISABLED
+DIAGNOSIS                      YES DISABLED
+DIAGNOSIS_RULES                YES DISABLED
+DR$CTX_PAR_DIAG_IDX$I          NO  DISABLED
+DR$CTX_PAR_DIAG_IDX$K          NO  DISABLED
+DR$CTX_PAR_DIAG_IDX$N          NO  DISABLED
+DR$CTX_PAR_DIAG_IDX$R          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$I          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$K          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$N          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$R          NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$I      NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$K      NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$N      NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$R      NO  DISABLED
+PROCEDURE                      YES DISABLED
+PROCEDURE_CUSTOM_DESCRIPTION   YES DISABLED
+PROCEDURE_QUANTITY_RULES       YES DISABLED
+PROCEDURE_RULES                YES DISABLED
+PROCEDURE_TIME_RULES           YES DISABLED
+PROCEDURE_TYPE                 YES DISABLED
+QUANTITY_RULES                 YES DISABLED
+RULES                          YES DISABLED
+SOURCE_OF_DECISION             YES DISABLED
+STATUS                         YES DISABLED
+TIME_RULES                     YES DISABLED
+
+26 rows selected.
+
+SQL> !uname -a
+Linux sfc-app-test-4 3.10.0-693.21.1.el7.x86_64 #1 SMP Fri Feb 23 18:54:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+
+SQL>
+
+
+
+
+
+12:53:53 SQL> l
+  1* select TABLE_NAME,HAS_IDENTITY,DEPENDENCIES from dba_tables where OWNER='PARAMETERS'
+12:54:08 SQL> 2 order by 1
+12:54:14 SQL> r
+  1  select TABLE_NAME,HAS_IDENTITY,DEPENDENCIES from dba_tables where OWNER='PARAMETERS'
+  2* order by 1
+
+TABLE_NAME                     HAS DEPENDEN
+------------------------------ --- --------
+APPLICATION_PROPERTIES         YES DISABLED
+DIAGNOSIS                      YES DISABLED
+DIAGNOSIS_RULES                YES DISABLED
+DR$CTX_PAR_DIAG_IDX$I          NO  DISABLED
+DR$CTX_PAR_DIAG_IDX$K          NO  DISABLED
+DR$CTX_PAR_DIAG_IDX$N          NO  DISABLED
+DR$CTX_PAR_DIAG_IDX$R          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$I          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$K          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$N          NO  DISABLED
+DR$CTX_PAR_PROC_IDX$R          NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$I      NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$K      NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$N      NO  DISABLED
+DR$CTX_PAR_PROC_TYP_IDX$R      NO  DISABLED
+PROCEDURE                      YES DISABLED
+PROCEDURE_CUSTOM_DESCRIPTION   YES DISABLED
+PROCEDURE_QUANTITY_RULES       YES DISABLED
+PROCEDURE_RULES                YES DISABLED
+PROCEDURE_TIME_RULES           YES DISABLED
+PROCEDURE_TYPE                 YES DISABLED
+QUANTITY_RULES                 YES DISABLED
+RULES                          YES DISABLED
+SOURCE_OF_DECISION             YES DISABLED
+STATUS                         YES DISABLED
+TIME_RULES                     YES DISABLED
+
+26 rows selected.
+
+12:54:15 SQL> !uname -a
+Linux sfc-app-desa-2 3.10.0-693.21.1.el7.x86_64 #1 SMP Fri Feb 23 18:54:16 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+
+12:56:07 SQL>
+
+
+
+USERNAME                              SID    SERIAL#
+------------------------------ ---------- ----------
+APP_RULES_ENGINE_WRITING              381      24941
+APP_RULES_ENGINE_WRITING              743      44293
+						875      23517
+
+

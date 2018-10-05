@@ -1,0 +1,23 @@
+
+
+SQL> drop user parameters cascade;
+
+User dropped.
+
+SQL> drop user security cascade;
+
+User dropped.
+
+SQL> drop user transactional cascade;
+
+User dropped.
+
+SQL> drop user message cascade;
+
+User dropped.
+
+SQL> drop user APP_RULES_ENGINE_WRITING cascade;
+
+User dropped.
+
+SQL>

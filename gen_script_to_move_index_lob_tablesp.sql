@@ -1,0 +1,1 @@
+select 'alter table  '||owner||'.'||table_name||' move lob ('||column_name||') store as (tablespace INIDEX01);' from dba_lobs where owner='MESSAGE'

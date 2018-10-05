@@ -1,0 +1,49 @@
+[root@sfc-app-test-4 ~]# firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens32
+  sources:
+  services: dhcpv6-client ssh
+  ports: 443/tcp 80/tcp 9990/tcp
+  protocols:
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+        rule family="ipv4" source address="192.168.151.0/24" port port="1521" protocol="tcp" accept
+        rule family="ipv4" source address="192.168.80.0/24" port port="1521" protocol="tcp" accept
+[root@sfc-app-test-4 ~]#
+
+
+
+
+[root@sfc-app-test-4 ~]# history|grep firewall
+  370  2018-08-17 13:08:35 : firewall-cmd --list-ports
+  371  2018-08-17 13:09:00 : firewall-cmd --state
+  372  2018-08-17 13:10:34 : firewall-cmd --zone=public --permanent --add-port=443/tcp
+  373  2018-08-17 13:10:40 : firewall-cmd --zone=public --permanent --add-port=80/tcp
+  374  2018-08-17 13:10:47 : firewall-cmd --zone=public --permanent --add-port=9990/tcp
+  375  2018-08-17 13:10:56 : firewall-cmd --reload
+  384  2018-08-17 13:26:18 : firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.151.0/24" port protocol="tcp" port="1521" accept'
+  385  2018-08-17 13:26:32 : firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.80.0/24" port protocol="tcp" port="1521" accept'
+  386  2018-08-17 13:26:42 : firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m pkttype --pkt-type multicast -j ACCEPT
+  387  2018-08-17 13:27:31 : firewall-cmd --permanent --direct --add-rule ipv6 filter INPUT 0 -m pkttype --pkt-type multicast -j ACCEPT
+  388  2018-08-17 13:27:46 : firewall-cmd --reload
+  390  2018-08-17 13:49:04 : firewall-cmd --reload
+  950  2018-08-24 07:57:26 : firewall-cmd list-all
+  951  2018-08-24 07:57:36 : firewall-cmd --list-all
+ 1000  2018-08-27 05:09:24 : firewall-cmd --list-all
+ 1001  2018-08-27 05:10:29 : history|grep firewall
+[root@sfc-app-test-4 ~]#
+
+
+
+
+
+
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.151.0/24" port protocol="tcp" port="5500" accept'
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.80.0/24" port protocol="tcp" port="5500" accept'
+
+

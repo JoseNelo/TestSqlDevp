@@ -1,0 +1,422 @@
+1  ll
+    2  mkdir gridinfra/
+    3  cd gridinfra/
+    4  ll
+    5  unzip /tmp/linuxx64_12201_grid_home.zip
+    6  ulimit
+    7  ulimit -a
+    8  yum groupinstall "X Window System"
+    9  ll
+   10  cd gridinfra/
+   11  ll
+   12  cd bin/
+   13  ll
+   14  cd ..
+   15  ll
+   16  find . -name runInstaller
+   17  cd oui/
+   18  ll
+   19  cd bin
+   20  ll
+   21  pwd
+   22  /home/grid/gridinfra/oui/bin/runInstaller
+   23  cat runInstaller.sh
+   24  pwd
+   25  cd
+   26  cd gridinfra/
+   27  ll
+   28  find . -name gridSetup.sh
+   29  pwd
+   30  /home/grid/gridinfra/gridSetup.sh
+   31  ll /tmp/linuxx64_12201_grid_home.zip
+   32  umask
+   33  cd /u01/
+   34  mkdir stage
+   35  cd stage/
+   36  ll
+37  unzip /tmp/linuxamd64_12102_grid_1of2.zip
+   38  unzip /tmp/linuxamd64_12102_grid_2of2.zip
+   39  pwd
+   40  ll
+   41  cd ..
+   42  cd -
+   43  ll
+   44  cd grid/
+   45  ll
+   46  ll install/
+   47  ll response/
+   48  ll rpm/
+   49  ll sshsetup/
+   50  ll stage/
+   51  pwd
+   52  /u01/stage/grid/runInstaller
+   53  rpm -qi cvuqdisk
+   54  su -
+   55  cd /u01
+   56  ll
+   57  cd stage/
+   58  ll
+   59  cd grid/
+   60  find . -name cvuqdisk*
+   61  cd
+   62  ll
+   63  cd gridinfra/
+   64  find . -name cvuqdisk*
+   65  rpm -qa| grep oracleasm
+   66  yum install    oracleasm
+   67  yum install    oracleasm-support
+   68  yum install oracleasmlib
+   69  find . -name oracleasm*
+   70  ls -l /usr/sbin/oracle*
+   71  cat     /etc/sysconfig/oracleasm
+   72  ./cluvfy stage -pre  crsinst
+   73  su - oracle
+   74  /home/oracle/cvu/bin/cluvfy stage -pre  crsinst -n `hostname` -fixup   -verbose | tee ~/cluvfy_preinst_$RANDOM.log
+   75  ll
+   76  ll oraInventory/
+   77  date
+   78  cd /u01
+   79  ll
+   80  ll app/oraInventory/
+   81  ll
+   82  cd app/
+   83  ll
+   84  cd ..
+   85  /u01/stage/grid/runInstaller
+   86  cd
+   87  ll
+   88  cd -
+   89  cd
+   90  ll
+   91  /home/oracle/cvu/bin/cluvfy stage -pre  crsinst -n `hostname` -fixup   -verbose | tee ~/cluvfy_preinst_$RANDOM.log
+   92  su - oracle
+   93  cd gridinfra/cv/
+   94  ll
+   95  cd rpm/
+   96  ll
+   97  pwd
+   98  su - oracle
+   99  ll
+  100  cd rodri.oracle/logs/
+  101  ll
+  102  vi installActions2018-07-12_03-23-38PM.log
+  103  cd /u01
+  104  ll
+  105  cd app
+  106  ll
+  107  mkdir -p /u01/app/12.1.0/grid
+  108  ll
+109  ll /etc/ora*
+  110  /u01/stage/grid/runInstaller
+  111  htop
+  112  vi .bash_profile
+  113  cat .bash_profile
+  114  sqlplus /nolog
+  115  asmcmd
+  116  asmca
+  117  asmcmd
+  118  sqlplus /nolog
+  119  asmcmd
+  120  hist
+  121  history
+  122  su - oracle
+  123  cd /
+  124  chmod 755 u01
+  125  ll
+  126  chmod 755 /u01
+  127  chmod 775 /u01
+  128  cd
+  129  ll
+  130  pwd
+  131  cd $TNS_ADMIN
+  132  pwd
+  133  ll
+  134  cat sqlnet.ora
+  135  cat listener.ora
+  136  exit
+  137  cd
+  138  ls -lha
+  139  cat .Xauthority
+  140  cat .bash_profile
+  141  cat .bashrc
+  142  env
+  143  exit
+  144  c d.ss
+--More--
+145  cd .ssh
+  146  end
+  147  env
+  148  cd
+  149  ls -lha
+  150  cat .Xauthority
+  151  exit
+  152  cd
+  153  cat .bash_profile
+  154  cat /etc/security/limits.conf
+  155  cd
+  156  cat .bash_profile
+  157  exit
+  158  asmcmd
+  159  ls -ltrh
+  160  crsctl stat res -t
+  161  crs_stat -t
+  162  su - oracle
+  163  df -hP
+  164  ps
+  165  sqlplus
+  166  cd $TNS_ADMIN
+  167  pwd
+  168  ls -ltr
+  169  su - oracle
+  170  sqlplus / as sysasm
+  171  asmcmd
+  172  crsctl stat res -t
+  173  srvctl
+  174  crs_stat -t
+  175  crsctl check crs
+  176  crsctl check ohas
+  177  crsctl check has
+  178  crsctl check
+  179  crsctl check ccs
+  180  crsctl check ccs res
+179  crsctl check ccs
+  180  crsctl check ccs res
+  181  crsctl check ccs res -h
+  182  crsctl check ccs ressource -h
+  183  crsctl check ccs ressource -all
+  184  crsctl check ccs ressource all
+  185  crsctl query crs softwareversion
+  186  crsctl query crs
+  187  crsctl query crs activeversion
+  188  crsctl status resource
+  189  df -k
+  190  swapon -all
+  191  swapon --all
+  192  swapon --summary
+  193  05:56:23 SQL> l
+  194    1  select *
+  195    2      from
+  196    3      v$backup_set
+  197    4  where
+  198    5      completion_time > sysdate-7
+  199    6  order by
+  200    7*     completion_time desc
+  201  05:56:24 SQL> r
+  202    1  select *
+  203    2      from
+  204    3      v$backup_set
+  205    4  where
+  206    5      completion_time > sysdate-7
+  207    6  order by
+  208    7*     completion_time desc
+  209  cat /proc/swaps
+  210  free
+  211  pwd
+  212  ls -las
+  213  cat .bash_profile
+  214  history|more
+
+  
+ [grid@sfc-app-test-4 ~]$ crsctl status res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.DATA.dg
+               ONLINE  ONLINE       sfc-app-test-4           STABLE
+ora.FRA.dg
+               ONLINE  ONLINE       sfc-app-test-4           STABLE
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       sfc-app-test-4           STABLE
+ora.asm
+               ONLINE  ONLINE       sfc-app-test-4           Started,STABLE
+ora.ons
+               OFFLINE OFFLINE      sfc-app-test-4           STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.cssd
+      1        ONLINE  ONLINE       sfc-app-test-4           STABLE
+ora.diskmon
+      1        OFFLINE OFFLINE                               STABLE
+ora.evmd
+      1        ONLINE  ONLINE       sfc-app-test-4           STABLE
+ora.sft.db
+      1        ONLINE  ONLINE       sfc-app-test-4           Open,STABLE
+--------------------------------------------------------------------------------
+[grid@sfc-app-test-4 ~]$
+
+ 
+ ================================================================================
+ 
+ [grid@sfc-app-desa-2 ~]$ crsctl status res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.DATA.dg
+               ONLINE  ONLINE       sfc-app-desa-2           STABLE
+ora.FRA.dg
+               ONLINE  ONLINE       sfc-app-desa-2           STABLE
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       sfc-app-desa-2           STABLE
+ora.asm
+               ONLINE  ONLINE       sfc-app-desa-2           Started,STABLE
+ora.ons
+               OFFLINE OFFLINE      sfc-app-desa-2           STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.cssd
+      1        ONLINE  ONLINE       sfc-app-desa-2           STABLE
+ora.diskmon
+      1        OFFLINE OFFLINE                               STABLE
+ora.evmd
+      1        ONLINE  ONLINE       sfc-app-desa-2           STABLE
+ora.sfd.db
+      1        ONLINE  ONLINE       sfc-app-desa-2           Open,STABLE
+--------------------------------------------------------------------------------
+[grid@sfc-app-desa-2 ~]$
+
+
+[grid@sfc-app-desa-2 ~]$ crsctl status res
+NAME=ora.DATA.dg
+TYPE=ora.diskgroup.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-desa-2
+
+NAME=ora.FRA.dg
+TYPE=ora.diskgroup.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-desa-2
+
+NAME=ora.LISTENER.lsnr
+TYPE=ora.listener.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-desa-2
+
+NAME=ora.asm
+TYPE=ora.asm.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-desa-2
+
+NAME=ora.cssd
+TYPE=ora.cssd.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-desa-2
+
+NAME=ora.diskmon
+TYPE=ora.diskmon.type
+TARGET=OFFLINE
+STATE=OFFLINE
+
+NAME=ora.evmd
+TYPE=ora.evm.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-desa-2
+
+NAME=ora.ons
+TYPE=ora.ons.type
+TARGET=OFFLINE
+STATE=OFFLINE
+
+NAME=ora.sfd.db
+TYPE=ora.database.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-desa-2
+
+
+
+[grid@sfc-app-test-4 ~]$ crsctl status res
+NAME=ora.DATA.dg
+TYPE=ora.diskgroup.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-test-4
+
+NAME=ora.FRA.dg
+TYPE=ora.diskgroup.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-test-4
+
+NAME=ora.LISTENER.lsnr
+TYPE=ora.listener.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-test-4
+
+NAME=ora.asm
+TYPE=ora.asm.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-test-4
+
+NAME=ora.cssd
+TYPE=ora.cssd.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-test-4
+
+NAME=ora.diskmon
+TYPE=ora.diskmon.type
+TARGET=OFFLINE
+STATE=OFFLINE
+
+NAME=ora.evmd
+TYPE=ora.evm.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-test-4
+
+NAME=ora.ons
+TYPE=ora.ons.type
+TARGET=OFFLINE
+STATE=OFFLINE
+
+NAME=ora.sft.db
+TYPE=ora.database.type
+TARGET=ONLINE
+STATE=ONLINE on sfc-app-test-4
+
+[grid@sfc-app-test-4 ~]$
+
+
+
+
+[grid@sfc-app-test-4 ~]$ srvctl config database -db SFT -all
+Database unique name: SFT
+Database name: SFT
+Oracle home: /u01/app/oracle/product/12.1.0/dbhome_1
+Oracle user: oracle
+Spfile: +DATA/SFT/PARAMETERFILE/spfile.266.984386513
+Password file:
+Domain: conexia.com
+Start options: open
+Stop options: immediate
+Database role: PRIMARY
+Management policy: AUTOMATIC
+Disk Groups: DATA,FRA
+Services:
+Database is enabled
+OSDBA group:
+OSOPER group:
+Database instance: SFT
+[grid@sfc-app-test-4 ~]$
+
+[grid@sfc-app-test-4 ~]$ srvctl config database -db SFT -verbose
+Database unique name: SFT
+Database name: SFT
+Oracle home: /u01/app/oracle/product/12.1.0/dbhome_1
+Oracle user: oracle
+Spfile: +DATA/SFT/PARAMETERFILE/spfile.266.984386513
+Password file:
+Domain: conexia.com
+Start options: open
+Stop options: immediate
+Database role: PRIMARY
+Management policy: AUTOMATIC
+Disk Groups: DATA,FRA
+Services:
+OSDBA group:
+OSOPER group:
+Database instance: SFT
+[grid@sfc-app-test-4 ~]$
+
+

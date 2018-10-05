@@ -1,0 +1,1 @@
+sqlldr CONTROL=archivo datos.ctl LOG=C:\Users\jnelo\Documents\BaseDeDatos\scripts BD Oracle ST FUND\archivo datos.log BAD=C:\Users\jnelo\Documents\BaseDeDatos\scripts BD Oracle ST FUND\archivo datos.bad skip=1   
