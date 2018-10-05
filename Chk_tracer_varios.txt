@@ -1,0 +1,183 @@
+
+
+
+ALTER SYSTEM DISCONNECT SESSION '874,40490' IMMEDIATE;
+
+
+/u01/app/oracle/diag/rdbms/sfd/SFD/trace/SFD_ora_9190.trc
+
+
+SELECT PID, username, PROGRAM, TRACEFILE FROM V$PROCESS
+
+
+
+
+SET LINESIZE 100
+COLUMN trace_file FORMAT A60
+
+SELECT s.sid,
+       s.serial#,
+       pa.value || '/' || LOWER(SYS_CONTEXT('userenv','instance_name')) ||    
+       '_ora_' || p.spid || '.trc' AS trace_file
+FROM   v$session s,
+       v$process p,
+       v$parameter pa
+WHERE  pa.name = 'user_dump_dest'
+AND    s.paddr = p.addr
+AND    s.audsid = SYS_CONTEXT('USERENV', 'SESSIONID');
+
+SELECT p.tracefile
+FROM   v$session s
+       JOIN v$process p ON s.paddr = p.addr
+WHERE  s.sid = 385;
+
+
+
+alter system set timed_statistics=true;
+alter system set max_dump_file_size=unlimited;
+
+
+ALTER SESSION SET SQL_TRACE = TRUE;
+ALTER SESSION SET SQL_TRACE = FALSE;
+
+====================================
+
+Donde se guardan las trazas
+
+select * from v$diag_info;
+
+
+8:27:40 SQL> col name format a40
+08:27:53 SQL> r
+  1* select * from v$diag_info
+
+   INST_ID NAME                                     VALUE                                                            CON_ID
+---------- ---------------------------------------- ------------------------------------------------------------ ----------
+         1 Diag Enabled                             TRUE                                                                  0
+         1 ADR Base                                 /u01/app/oracle                                                       0
+         1 ADR Home                                 /u01/app/oracle/diag/rdbms/sfd/SFD                                    0
+         1 Diag Trace                               /u01/app/oracle/diag/rdbms/sfd/SFD/trace                              0
+         1 Diag Alert                               /u01/app/oracle/diag/rdbms/sfd/SFD/alert                              0
+         1 Diag Incident                            /u01/app/oracle/diag/rdbms/sfd/SFD/incident                           0
+         1 Diag Cdump                               /u01/app/oracle/diag/rdbms/sfd/SFD/cdump                              0
+         1 Health Monitor                           /u01/app/oracle/diag/rdbms/sfd/SFD/hm                                 0
+         1 Default Trace File                       /u01/app/oracle/diag/rdbms/sfd/SFD/trace/SFD_ora_10599.trc            0
+         1 Active Problem Count                     1                                                                     0
+         1 Active Incident Count                    44                                                                    0
+
+11 rows selected.
+
+08:27:53 SQL>
+
+=====================================
+
+APP_RULES_ENGINE_WRITING
+
+create or replace trigger user_logon_trg
+after logon on database
+begin
+if USER = 'APP_RULES_ENGINE_WRITING' then
+execute immediate
+'Alter session set events ''10046 trace name context forever, level 8''';
+end if;
+end;
+/
+
+
+
+APP_RULES_ENGINE_WRITING
+
+create or replace trigger user_logoff_trg
+before logoff on database
+begin
+if USER = 'APP_RULES_ENGINE_WRITING' then
+execute immediate
+'Alter session set events ''10046 trace name context off''';
+end if;
+end;
+/
+
+
+08:35:21 SQL> alter trigger user_logoff_trg disable;
+
+Trigger altered.
+
+08:36:43 SQL> alter trigger user_logon_trg disable;
+
+Trigger altered.
+
+08:36:49 SQL>
+
+08:37:50 SQL> select sysdate from dual;
+
+SYSDATE
+----------------
+2018-09-11 08:39
+
+08:39:32 SQL> alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
+
+Session altered.
+
+08:39:35 SQL> select sysdate from dual;
+
+SYSDATE
+--------------------
+11-SEP-2018 08:39:42
+
+08:39:42 SQL>
+
+
+exec dbms_system.set_sql_trace_in_session(748,38824,true);
+
+
+SET PAUSE ON
+SET PAUSE 'Press Return to Continue'
+SET PAGESIZE 60
+SET LINESIZE 300
+ 
+COLUMN username FORMAT A20
+COLUMN sid FORMAT 9999
+COLUMN serial# FORMAT 9999
+COLUMN event FORMAT A40
+ 
+SELECT NVL(s.username, '(oracle)') AS username,
+       s.sid,
+       s.serial#,
+       se.event,
+       se.total_waits,
+       se.total_timeouts,
+       se.time_waited,
+       se.average_wait,
+       se.max_wait,
+       se.time_waited_micro
+FROM   v$session_event se,
+       v$session s
+WHERE  s.sid = se.sid
+AND    s.sid = &Session_ID
+ORDER BY se.time_waited DESC
+/
+
+
+SET PAUSE on
+SET PAUSE 'Press Return to Continue'
+SET LINESIZE 300
+SET PAGESIZE 60
+COLUMN username FORMAT A20
+COLUMN event FORMAT A25
+COLUMN wait_class FORMAT A20
+ 
+SELECT NVL(s.username, '(oracle)') AS username,
+s.sid,
+s.serial#,
+sw.event,
+sw.wait_class,
+sw.wait_time,
+sw.seconds_in_wait,
+sw.state
+FROM   v$session_wait sw,
+v$session s
+WHERE  s.sid = sw.sid and NVL(s.username, '(oracle)') <>'oracle'
+ORDER BY sw.seconds_in_wait DESC
+/
+
+

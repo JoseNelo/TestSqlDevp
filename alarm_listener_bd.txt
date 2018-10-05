@@ -1,0 +1,66 @@
+
+
+/opt/app/DB/diag/rdbms/example/example1/trace/alert_example1.log {
+compress
+rotate 4
+weekly
+create 640 oracle oinstall
+}
+
+
+
+/opt/app/DB/diag/tnslsnr/example/listener/trace/listener.log {
+compress
+rotate 4
+weekly
+create 640 oracle oinstall
+prerotate
+su - oracle "lsnrctl set Log_status off"
+endscript
+postrotate
+su - oracle "lsnrctl set Log_status on"
+endscript
+}
+
+
+echo -e "show base\nshow homes" | adrci
+
+
+
+
+
+lsnrctl <<-EOF
+set current_listener $ListenerName
+set log_status off
+EOF
+ 
+mv ${ListenerLogFile} ${ListenerLogFile}.${Date}
+ 
+lsnrctl <<-EOF
+set current_listener $ListenerName
+set log_status on
+EOF
+
+
+
+	#!/usr/bin/sh
+
+	#SET SHELL VARIABLES
+	HOSTNAME=`/usr/bin/uname -n`; export HOSTNAME
+	WHO_AM_I=`who am i | awk '{print $1}'`; export WHO_AM_I
+	BASE_DIR=`cat /etc/passwd | grep $WHO_AM_I":" | awk -F: '{print $6}'`; export BASE_DIR
+	LOG_DIR=$BASE_DIR/admin/$ORACLE_SID/bdump; export LOG_DIR
+	TODAY=`date '+%d-%b-%Y:%H:%M'`; export TODAY
+
+	echo "Going to clean the Alert log for "$ORACLE_SID" on $HOSTNAME"
+
+	/usr/bin/cp $LOG_DIR/alert_$ORACLE_SID.log $LOG_DIR/alert_$ORACLE_SID.log.$TODAY
+	/usr/bin/cat /dev/null > $LOG_DIR/alert_$ORACLE_SID.log
+	/usr/bin/touch $LOG_DIR/alert_$ORACLE_SID.log
+	/usr/bin/compress $LOG_DIR/alert_$ORACLE_SID.log.$TODAY
+
+	echo "Done Cleaning the Alert Log"
+	#eof
+
+
+

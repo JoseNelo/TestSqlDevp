@@ -1,0 +1,12 @@
+sqlplus / as sysdba << EOF
+SET LINESIZE 300
+COL PRODUCT FORMAT A50
+COL VERSION FORMAT A15
+COL STATUS FORMAT A15
+spool oversion.conexia
+select sysdate from dual;
+SELECT * FROM PRODUCT_COMPONENT_VERSION;
+select * from "V\$VERSION";
+spool off
+whenever sqlerror exit sql.sqlcode;
+EOF

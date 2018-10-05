@@ -1,0 +1,78 @@
+
+
+ORACLE_HOME=/projects/product/10.2.0/db_1
+export ORACLE_HOME
+ORACLE_SID=test1
+export ORACLE_SID
+PATH=$PATH:$ORACLE_HOME/bin
+export PATH
+
+set -x
+
+RMAN_BACKUP=/projects/test_backup
+Rman_Log=$RMAN_BACKUP/"$ORACLE_SID"_backup_log
+
+touch $Rman_Log
+
+echo "\n\n ****RMAN FULL BACKUP****" >> $Rman_Log
+echo "\n rman full startup time: `date`" >> $Rman_Log
+DD=`date +%d%m%y`
+mkdir /backup/rman/datafiles_backup/bkp_${DD}
+mkdir /backup/rman/controlfile_backup/bkp_${DD}
+mkdir /backup/rman/arch_backup/bkp_${DD}
+
+sqlplus -s "sys/xxxxxx@TEST1 as sysdba" <<EOF  >> $Rman_Log
+set feedback off;
+alter system archive log current
+/
+set serveroutput on
+declare
+x number;
+y number;
+begin
+select max(SEQUENCE#) into x from gv\$archived_log where thread#=1;
+dbms_output.put_line('The Strat Sequence number on instance 1 = '||x||'');
+sys.dbms_system.ksdwrt(2,'Note to DBA : On Instance 1 RMAN Backup Starts at '||to_char(x)||' on '||to_char(sysdate,'DD/MON/YYYY HH:MM:MI'));
+select max(SEQUENCE#) into y from gv\$archived_log where thread#=2;
+dbms_output.put_line('The Strat Sequence number on instance 2 = '||y||'');
+sys.dbms_system.ksdwrt(2,'Note to DBA : On Instance 2 RMAN Backup Starts at '||to_char(y)||' on '||to_char(sysdate,'DD/MON/YYYY HH:MM:MI'));
+end;
+/
+exit
+EOF
+rman target / nocatalog log=$RMAN_BACKUP/rman_fullbackup_${DD}.log << EOF1
+change archivelog all crosscheck;
+run {
+CONFIGURE RETENTION POLICY TO REDUNDANCY 1;
+CONFIGURE DEVICE TYPE DISK PARALLELISM 2 BACKUP TYPE TO BACKUPSET;
+backup as compressed backupset incremental level 0 database tag 'TEST_FULL_BACKUP' format '/backup/rman/datafiles_backup/bkp_${DD}/%d_%s_%p';
+backup as compressed backupset archivelog all not backed up 1 times FORMAT '/backup/rman/arch_backup/bkp_${DD}/ARCH_%d_%s_%p';
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO  '/ora_backup/rman/controlfile_backup/bkp_${DD}/%F';
+delete noprompt obsolete;
+delete noprompt archivelog all completed before 'sysdate-2';
+}
+EXIT;
+EOF1
+
+sqlplus -s "sys/xxxxxxx@TEST1 as sysdba" <<EOF2 >> $Rman_Log
+set feedback off;
+alter system archive log current
+/
+set serveroutput on
+declare
+x number;
+y number;
+begin
+select max(SEQUENCE#+1) into x from gv\$archived_log where thread#=1;
+dbms_output.put_line('The Finished Sequence number on instance 1 = '||x||'');
+sys.dbms_system.ksdwrt(2,'Note to DBA : On Instance 1 RMAN Backup Finished at '||to_char(x)||' on '||to_char(sysdate,'DD/MON/YYYY HH:MM:MI'));
+select max(SEQUENCE#+1) into y from gv\$archived_log where thread#=2;
+dbms_output.put_line('The Finished Sequence number on instance 2 = '||y||'');
+sys.dbms_system.ksdwrt(2,'Note to DBA : On Instance 2 RMAN Backup Finished at '||to_char(y)||' on '||to_char(sysdate,'DD/MON/YYYY HH:MM:MI'));
+end;
+/
+exit
+EOF2
+
+echo "\n rman fullbackup end time: `date`" >> $Rman_Log
+

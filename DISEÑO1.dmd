@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="DISEÑO1" id="C9507E19-DC44-B740-5A83-EF88D7E0B3F4" version="3.5">
+<createdBy>jnelo</createdBy>
+<createdTime>2018-08-30 19:45:21 UTC</createdTime>
+<ownerDesignName>DISEÑO1</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>C9507E19-DC44-B740-5A83-EF88D7E0B3F4</designId>
+<usedDesignStorageDescriptors>
+</usedDesignStorageDescriptors>
+</OSDM_Design>
