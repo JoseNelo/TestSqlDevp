@@ -1,0 +1,49 @@
+
+
+grid@sfc-app-desa-2 dba]$ df -k
+Filesystem            1K-blocks     Used Available Use% Mounted on
+/dev/mapper/rhel-root  46606096 20929200  25676896  45% /
+devtmpfs                7415872        0   7415872   0% /dev
+tmpfs                   7427304   131988   7295316   2% /dev/shm
+tmpfs                   7427304   443088   6984216   6% /run
+tmpfs                   7427304        0   7427304   0% /sys/fs/cgroup
+/dev/sdd1             104805380 45734664  59070716  44% /u01
+/dev/sda1                508588   178320    330268  36% /boot
+tmpfs                   1485464        0   1485464   0% /run/user/54322
+tmpfs                   1485464        0   1485464   0% /run/user/0
+[grid@sfc-app-desa-2 dba]$
+[grid@sfc-app-desa-2 dba]$
+
+
+[grid@sfc-app-desa-2 dba]$ free
+              total        used        free      shared  buff/cache   available
+Mem:       14854608     4620868     6001548     1863896     4232192     7980112
+Swap:      20971516     4409952    16561564
+[grid@sfc-app-desa-2 dba]$
+
+
+[grid@sfc-app-desa-2 dba]$ ifconfig -a
+eno16777728: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.80.203  netmask 255.255.255.0  broadcast 192.168.80.255
+        inet6 fe80::27ff:fe46:27  prefixlen 64  scopeid 0x20<link>
+        ether 02:00:27:46:00:27  txqueuelen 1000  (Ethernet)
+        RX packets 10527530  bytes 6114740126 (5.6 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 9636183  bytes 4151676361 (3.8 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 3857322  bytes 2583531275 (2.4 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3857322  bytes 2583531275 (2.4 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[grid@sfc-app-desa-2 dba]$
+
+
+
+
+
